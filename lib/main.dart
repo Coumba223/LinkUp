@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:linkupapp/screens/connexion.dart';
+import 'package:linkupapp/screens/inscription.dart';
 import 'package:linkupapp/screens/discover1.dart';
 import 'package:linkupapp/screens/discover2.dart';
 import 'package:linkupapp/screens/discover3.dart';
@@ -17,7 +19,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(colorScheme: .fromSeed(seedColor: Colors.deepPurple)),
-      home: const Discover3(),
+      home: const Connexion(),
     );
   }
 }
