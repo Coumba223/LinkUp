@@ -5,6 +5,7 @@ import 'package:linkupapp/screens/inscription.dart';
 import 'package:linkupapp/screens/discover1.dart';
 import 'package:linkupapp/screens/discover2.dart';
 import 'package:linkupapp/screens/discover3.dart';
+import 'package:linkupapp/screens/nouveaucontact.dart';
 import 'package:linkupapp/screens/profil.dart';
 import 'package:linkupapp/screens/splashscreen.dart';
 
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(colorScheme: .fromSeed(seedColor: Colors.deepPurple)),
-      home: const Profil(),
+      home: const NouveauContact(),
     );
   }
 }
