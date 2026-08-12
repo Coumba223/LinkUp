@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:linkupapp/screens/connexion.dart';
+import 'package:linkupapp/screens/home.dart';
 import 'package:linkupapp/screens/inscription.dart';
 import 'package:linkupapp/screens/discover1.dart';
 import 'package:linkupapp/screens/discover2.dart';
 import 'package:linkupapp/screens/discover3.dart';
+import 'package:linkupapp/screens/profil.dart';
 import 'package:linkupapp/screens/splashscreen.dart';
 
 void main() {
@@ -19,7 +21,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(colorScheme: .fromSeed(seedColor: Colors.deepPurple)),
-      home: const Connexion(),
+      home: const Profil(),
     );
   }
 }
