@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:linkupapp/screens/discover2.dart';
 
 class Discover1 extends StatefulWidget {
   const Discover1({super.key});
@@ -94,7 +95,12 @@ class _Discover1State extends State<Discover1> {
                       elevation: 0,
                     ),
                     onPressed: () {
-                      print("Bouton cliqué");
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const Discover2(),
+                        ),
+                      );
                     },
                     child: Text(
                       "Suivant",

@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:linkupapp/functions/auth.dart';
+import 'package:linkupapp/models/user.dart';
+
 
 class Profil extends StatefulWidget {
   const Profil({super.key});
@@ -8,6 +11,21 @@ class Profil extends StatefulWidget {
 }
 
 class _ProfilState extends State<Profil> {
+  User? user;
+  @override
+  void initState() {
+    super.initState();
+    chargerUtilisateur();
+  }
+
+  Future<void> chargerUtilisateur() async {
+    User? resultat = await getCurrentUser();
+
+    setState(() {
+      user = resultat;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,12 +42,10 @@ class _ProfilState extends State<Profil> {
               children: [
                 CircleAvatar(radius: 65),
                 SizedBox(height: 10),
+                Text("----------", style: TextStyle(color: Color(0XFF123B7C))),
+
                 Text(
-                  "Karim DUMONT",
-                  style: TextStyle(color: Color(0XFF123B7C)),
-                ),
-                Text(
-                  "karim.dumont@example.com",
+                  user?.email ?? "Chargement...",
                   style: TextStyle(color: Color(0XFF125ACC)),
                 ),
                 SizedBox(height: 30),

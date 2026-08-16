@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:linkupapp/screens/connexion.dart';
 
 class Discover3 extends StatefulWidget {
   const Discover3({super.key});
@@ -92,14 +93,19 @@ class _Discover3State extends State<Discover3> {
                       elevation: 0,
                     ),
                     onPressed: () {
-                      print("Bouton cliqué");
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const Connexion(),
+                        ),
+                      );
                     },
                     child: Text(
-                      "Suivant",
+                      "Commencer",
                       style: TextStyle(
                         color: Color(0XFFFFFFFF),
                         fontFamily: "regular",
-                        fontSize: 16,
+                        fontSize: 13,
                       ),
                     ),
                   ),

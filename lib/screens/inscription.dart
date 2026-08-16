@@ -1,4 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:linkupapp/functions/auth.dart';
+import 'package:linkupapp/models/User.dart';
+import 'package:linkupapp/screens/connexion.dart';
+import 'package:linkupapp/screens/home.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Inscription extends StatefulWidget {
   const Inscription({super.key});
@@ -11,6 +18,7 @@ class _ConnexionState extends State<Inscription> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,8 +71,11 @@ class _ConnexionState extends State<Inscription> {
                               fillColor: Colors.white38,
                             ),
                             validator: (value) {
-                              if (value == null || value.isEmpty) {
+                              if (value == null || value.trim().isEmpty) {
                                 return "Veuillez saisir votre email";
+                              }
+                              if (!value.contains("@")) {
+                                return "Veullez saisir un email valide";
                               }
                               return null;
                             },
@@ -94,8 +105,14 @@ class _ConnexionState extends State<Inscription> {
                             ),
                             obscureText: true,
                             validator: (value) {
-                              if (value == null || value.isEmpty) {
+                              if (value == null || value.trim().isEmpty) {
                                 return "Veuillez saisir votre mot de passe";
+                              }
+                              if (value.length < 8) {
+                                return "Entrez au moins 8 caracteres";
+                              }
+                              if (!RegExp(r'[A-Z]').hasMatch(value)) {
+                                return "le champ doit contenir une majuscule";
                               }
                               return null;
                             },
@@ -106,7 +123,24 @@ class _ConnexionState extends State<Inscription> {
                     ),
                     SizedBox(height: 10),
                     ElevatedButton(
-                      onPressed: () async {},
+                      onPressed: () async {
+                        if (_formKey.currentState!.validate()) {
+                          String email = _emailController.text;
+                          String password = _passwordController.text;
+                          bool connected = await inscrire(
+                            email: email,
+                            password: password,
+                          );
+                          if (connected == true) {
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const Home(),
+                              ),
+                            );
+                          }
+                        }
+                      },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Color(0XFF0845C3),
 
@@ -136,7 +170,14 @@ class _ConnexionState extends State<Inscription> {
 
                     SizedBox(height: 10),
                     ElevatedButton(
-                      onPressed: () async {},
+                      onPressed: () async {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const Connexion(),
+                          ),
+                        );
+                      },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Color(0XFFFFFFFF),
 
