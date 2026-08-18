@@ -71,6 +71,8 @@ class _EditPasswordState extends State<EditPassword> {
     User utilisateurModifie = User(
       nom: user!.nom,
       prenom: user!.prenom,
+      profession: user!.profession,
+      telephone: user!.telephone,
       email: user!.email,
       password: nouveauPasswordController.text,
       siteWeb: user!.siteWeb,

@@ -123,6 +123,15 @@ class DetailContact extends StatelessWidget {
 
                   const SizedBox(height: 20),
 
+                  // PROFESSION
+                  _information(
+                    icon: Icons.badge_outlined,
+                    title: "Profession",
+                    value: contact.profession,
+                  ),
+
+                  const SizedBox(height: 15),
+
                   // TELEPHONE
                   _information(
                     icon: Icons.phone_outlined,

@@ -429,6 +429,15 @@ class _HomeState extends State<Home> {
                 textAlign: TextAlign.center,
               ),
 
+              if (user!.profession?.isNotEmpty == true) ...[
+                const SizedBox(height: 3),
+                Text(
+                  user!.profession!,
+                  style: const TextStyle(fontSize: 13, color: greyText),
+                  textAlign: TextAlign.center,
+                ),
+              ],
+
               const SizedBox(height: 5),
 
               Text(

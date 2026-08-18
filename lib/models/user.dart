@@ -3,6 +3,8 @@ import 'dart:convert';
 class User {
   String? nom;
   String? prenom;
+  String? profession;
+  String? telephone;
   String email;
   String password;
   String? siteWeb;
@@ -13,6 +15,8 @@ class User {
     required this.password,
     this.nom,
     this.prenom,
+    this.profession,
+    this.telephone,
     this.siteWeb,
     this.linkedin,
   });
@@ -21,6 +25,8 @@ class User {
     return jsonEncode({
       'nom': nom,
       'prenom': prenom,
+      'profession': profession ?? '',
+      'telephone': telephone ?? '',
       'email': email,
       'siteWeb': siteWeb ?? '',
       'linkedin': linkedin ?? '',
@@ -35,6 +41,8 @@ class User {
     return {
       'nom': nom,
       'prenom': prenom,
+      'profession': profession,
+      'telephone': telephone,
       'email': email,
       'password': password,
       'siteWeb': siteWeb,
@@ -46,6 +54,8 @@ class User {
     return User(
       nom: json['nom'],
       prenom: json['prenom'],
+      profession: json['profession'],
+      telephone: json['telephone'],
       email: json['email'] ?? '',
       password: json['password'] ?? '',
       siteWeb: json['siteWeb'],

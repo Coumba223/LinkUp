@@ -14,6 +14,8 @@ class _InfoPersoState extends State<InfoPerso> {
 
   final TextEditingController nomController = TextEditingController();
   final TextEditingController prenomController = TextEditingController();
+  final TextEditingController professionController = TextEditingController();
+  final TextEditingController telephoneController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController siteWebController = TextEditingController();
   final TextEditingController linkedinController = TextEditingController();
@@ -33,6 +35,8 @@ class _InfoPersoState extends State<InfoPerso> {
 
         nomController.text = utilisateur.nom ?? "";
         prenomController.text = utilisateur.prenom ?? "";
+        professionController.text = utilisateur.profession ?? "";
+        telephoneController.text = utilisateur.telephone ?? "";
         emailController.text = utilisateur.email;
         siteWebController.text = utilisateur.siteWeb ?? "";
         linkedinController.text = utilisateur.linkedin ?? "";
@@ -46,6 +50,8 @@ class _InfoPersoState extends State<InfoPerso> {
     User utilisateurModifie = User(
       nom: nomController.text,
       prenom: prenomController.text,
+      profession: professionController.text,
+      telephone: telephoneController.text,
       email: emailController.text,
       password: user!.password,
       siteWeb: siteWebController.text,
@@ -69,6 +75,8 @@ class _InfoPersoState extends State<InfoPerso> {
   void dispose() {
     nomController.dispose();
     prenomController.dispose();
+    professionController.dispose();
+    telephoneController.dispose();
     emailController.dispose();
     siteWebController.dispose();
     linkedinController.dispose();
@@ -143,6 +151,41 @@ class _InfoPersoState extends State<InfoPerso> {
                       filled: true,
                       fillColor: Colors.white,
 
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15),
+                        borderSide: BorderSide.none,
+                      ),
+                    ),
+                  ),
+
+                  const SizedBox(height: 15),
+
+                  // PROFESSION
+                  TextField(
+                    controller: professionController,
+                    decoration: InputDecoration(
+                      labelText: "Profession",
+                      prefixIcon: const Icon(Icons.badge_outlined),
+                      filled: true,
+                      fillColor: Colors.white,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15),
+                        borderSide: BorderSide.none,
+                      ),
+                    ),
+                  ),
+
+                  const SizedBox(height: 15),
+
+                  // TELEPHONE
+                  TextField(
+                    controller: telephoneController,
+                    keyboardType: TextInputType.phone,
+                    decoration: InputDecoration(
+                      labelText: "Numéro de téléphone",
+                      prefixIcon: const Icon(Icons.phone_outlined),
+                      filled: true,
+                      fillColor: Colors.white,
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(15),
                         borderSide: BorderSide.none,

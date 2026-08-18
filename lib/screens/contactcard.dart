@@ -27,9 +27,7 @@ class ContactCard extends StatelessWidget {
             padding: const EdgeInsets.all(15),
             child: Column(
               children: [
-                const CircleAvatar(
-                  radius: 45,
-                ),
+                const CircleAvatar(radius: 45),
 
                 const SizedBox(height: 5),
 
@@ -41,12 +39,13 @@ class ContactCard extends StatelessWidget {
                   ),
                 ),
 
-                Text(
-                  contact.email ?? "",
-                  style: const TextStyle(
-                    fontSize: 10,
+                Text(contact.email ?? "", style: const TextStyle(fontSize: 10)),
+
+                if (contact.profession?.isNotEmpty == true)
+                  Text(
+                    contact.profession!,
+                    style: const TextStyle(fontSize: 12),
                   ),
-                ),
 
                 const Divider(),
 
@@ -54,10 +53,7 @@ class ContactCard extends StatelessWidget {
                   leading: const Icon(Icons.mail_sharp),
                   title: const Text(
                     "ADRESSE E-MAIL",
-                    style: TextStyle(
-                      color: Color(0XFF64748B),
-                      fontSize: 10,
-                    ),
+                    style: TextStyle(color: Color(0XFF64748B), fontSize: 10),
                   ),
                   subtitle: Text(contact.email ?? ""),
                 ),
@@ -66,10 +62,7 @@ class ContactCard extends StatelessWidget {
                   leading: const Icon(Icons.phone),
                   title: const Text(
                     "TELEPHONE",
-                    style: TextStyle(
-                      color: Color(0XFF64748B),
-                      fontSize: 10,
-                    ),
+                    style: TextStyle(color: Color(0XFF64748B), fontSize: 10),
                   ),
                   subtitle: Text(contact.telephone ?? ""),
                 ),
@@ -78,24 +71,16 @@ class ContactCard extends StatelessWidget {
                   leading: const Icon(Icons.web),
                   title: const Text(
                     "SITE WEB",
-                    style: TextStyle(
-                      color: Color(0XFF64748B),
-                      fontSize: 10,
-                    ),
+                    style: TextStyle(color: Color(0XFF64748B), fontSize: 10),
                   ),
                   subtitle: Text(contact.siteWeb ?? ""),
                 ),
 
                 ListTile(
-                  leading: const Icon(
-                    Icons.dataset_linked_outlined,
-                  ),
+                  leading: const Icon(Icons.dataset_linked_outlined),
                   title: const Text(
                     "LINKEDIN",
-                    style: TextStyle(
-                      color: Color(0XFF64748B),
-                      fontSize: 10,
-                    ),
+                    style: TextStyle(color: Color(0XFF64748B), fontSize: 10),
                   ),
                   subtitle: Text(contact.linkedin ?? ""),
                 ),
@@ -119,10 +104,7 @@ class ContactCard extends StatelessWidget {
             child: const Center(
               child: Text(
                 "Ajouter au contact",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 18,
-                ),
+                style: TextStyle(color: Colors.white, fontSize: 18),
               ),
             ),
           ),
@@ -143,10 +125,7 @@ class ContactCard extends StatelessWidget {
             child: const Center(
               child: Text(
                 "Nouveau scan",
-                style: TextStyle(
-                  color: Color(0XFF123B7C),
-                  fontSize: 18,
-                ),
+                style: TextStyle(color: Color(0XFF123B7C), fontSize: 18),
               ),
             ),
           ),
