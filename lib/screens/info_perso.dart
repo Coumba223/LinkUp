@@ -54,15 +54,15 @@ class _InfoPersoState extends State<InfoPerso> {
 
     await updateUser(utilisateurModifie);
 
-    setState(() {
-      user = utilisateurModifie;
-    });
+    if (!mounted) return;
+
+    setState(() => user = utilisateurModifie);
 
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text("Informations mises à jour avec succès"),
-      ),
+      const SnackBar(content: Text("Informations mises à jour avec succès")),
     );
+
+    Navigator.pop(context, utilisateurModifie);
   }
 
   @override
@@ -87,22 +87,17 @@ class _InfoPersoState extends State<InfoPerso> {
 
         title: const Text(
           "Informations personnelles",
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-          ),
+          style: TextStyle(fontWeight: FontWeight.bold),
         ),
       ),
 
       body: user == null
-          ? const Center(
-              child: CircularProgressIndicator(),
-            )
+          ? const Center(child: CircularProgressIndicator())
           : SingleChildScrollView(
               padding: const EdgeInsets.all(20),
 
               child: Column(
                 children: [
-
                   // PHOTO
                   const CircleAvatar(
                     radius: 50,

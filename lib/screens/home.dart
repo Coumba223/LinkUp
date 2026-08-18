@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:linkupapp/functions/auth.dart';
 import 'package:linkupapp/models/user.dart';
@@ -20,7 +18,6 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   User? user;
 
-  // Couleurs
   static const Color backgroundColor = Color(0xFFEEF6FE);
   static const Color primaryColor = Color(0xFF0541C0);
   static const Color darkText = Color(0xFF1F2937);
@@ -47,15 +44,10 @@ class _HomeState extends State<Home> {
     return Scaffold(
       backgroundColor: backgroundColor,
 
-      // =====================================================
-      // APP BAR
-      // =====================================================
       appBar: AppBar(
         backgroundColor: backgroundColor,
         elevation: 0,
-
         automaticallyImplyLeading: false,
-
         titleSpacing: 20,
 
         title: Image.asset(
@@ -67,12 +59,14 @@ class _HomeState extends State<Home> {
           Padding(
             padding: const EdgeInsets.only(right: 20),
             child: GestureDetector(
-              onTap: () {
-                Navigator.push(
+              onTap: () async {
+                await Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => const Profil()),
                 );
+                await chargerUtilisateur();
               },
+
               child: const CircleAvatar(
                 radius: 20,
                 backgroundColor: Color(0xFFE3EDFF),
@@ -83,26 +77,19 @@ class _HomeState extends State<Home> {
         ],
       ),
 
-      // =====================================================
-      // BODY
-      // =====================================================
       body: SingleChildScrollView(
         padding: const EdgeInsets.fromLTRB(20, 10, 20, 30),
 
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // =================================================
-            // BIENVENUE
-            // =================================================
-            Text(
-              "Bienvenue à bord ",
-              style: const TextStyle(
+            const Text(
+              "Bienvenue à bord",
+              style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
                 color: darkText,
               ),
-              
             ),
 
             const SizedBox(height: 6),
@@ -116,9 +103,6 @@ class _HomeState extends State<Home> {
 
             const SizedBox(height: 25),
 
-            // =================================================
-            // PROFIL + NOUVEAU CONTACT
-            // =================================================
             Row(
               children: [
                 Expanded(
@@ -129,11 +113,12 @@ class _HomeState extends State<Home> {
                     color: Colors.white,
                     iconColor: primaryColor,
                     textColor: darkText,
-                    onTap: () {
-                      Navigator.push(
+                    onTap: () async {
+                      await Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) => const Profil()),
                       );
+                      await chargerUtilisateur();
                     },
                   ),
                 ),
@@ -163,9 +148,6 @@ class _HomeState extends State<Home> {
 
             const SizedBox(height: 28),
 
-            // =================================================
-            // MES CONTACTS
-            // =================================================
             const Text(
               "Gérer vos contacts",
               style: TextStyle(
@@ -187,7 +169,6 @@ class _HomeState extends State<Home> {
 
               child: Container(
                 width: double.infinity,
-
                 padding: const EdgeInsets.all(16),
 
                 decoration: BoxDecoration(
@@ -245,9 +226,6 @@ class _HomeState extends State<Home> {
 
             const SizedBox(height: 28),
 
-            // =================================================
-            // ACTIONS RAPIDES
-            // =================================================
             const Text(
               "Actions rapides",
               style: TextStyle(
@@ -261,25 +239,17 @@ class _HomeState extends State<Home> {
 
             Row(
               children: [
-                // ============================
-                // MA CARTE
-                // ============================
                 Expanded(
                   child: _quickAction(
                     image: 'assets/icons/scan-qr-code.png',
                     title: "Ma carte",
                     description: "Afficher mon QR Code",
-                    onTap: () {
-                      afficherQRCode();
-                    },
+                    onTap: afficherQRCode,
                   ),
                 ),
 
                 const SizedBox(width: 12),
 
-                // ============================
-                // AJOUTER
-                // ============================
                 Expanded(
                   child: _quickAction(
                     image: 'assets/icons/plus-circle.png',
@@ -296,17 +266,12 @@ class _HomeState extends State<Home> {
 
                 const SizedBox(width: 12),
 
-                // ============================
-                // QUITTER
-                // ============================
                 Expanded(
                   child: _quickAction(
                     image: 'assets/icons/Power.png',
                     title: "Quitter",
                     description: "Fermer ma session",
-                    onTap: () {
-                      afficherConfirmationDeconnexion();
-                    },
+                    onTap: afficherConfirmationDeconnexion,
                   ),
                 ),
               ],
@@ -316,10 +281,6 @@ class _HomeState extends State<Home> {
       ),
     );
   }
-
-  // =========================================================
-  // CARD PRINCIPALE
-  // =========================================================
 
   Widget _mainCard({
     required IconData icon,
@@ -335,7 +296,6 @@ class _HomeState extends State<Home> {
 
       child: Container(
         height: 185,
-
         padding: const EdgeInsets.all(16),
 
         decoration: BoxDecoration(
@@ -384,10 +344,6 @@ class _HomeState extends State<Home> {
     );
   }
 
-  // =========================================================
-  // ACTION RAPIDE
-  // =========================================================
-
   Widget _quickAction({
     required String image,
     required String title,
@@ -399,7 +355,6 @@ class _HomeState extends State<Home> {
 
       child: Container(
         height: 140,
-
         padding: const EdgeInsets.all(12),
 
         decoration: BoxDecoration(
@@ -436,14 +391,16 @@ class _HomeState extends State<Home> {
     );
   }
 
-  // =========================================================
-  // QR CODE
-  // =========================================================
-
   void afficherQRCode() {
+    if (user == null) {
+      return;
+    }
+
+    // Informations publiques de l'utilisateur
+    String donneesQR = user!.getInfo();
+
     showDialog(
       context: context,
-
       builder: (context) {
         return AlertDialog(
           shape: RoundedRectangleBorder(
@@ -458,14 +415,32 @@ class _HomeState extends State<Home> {
 
           content: Column(
             mainAxisSize: MainAxisSize.min,
-
             children: [
-              QrImageView(data: jsonEncode(user?.toJson()), size: 200),
+              QrImageView(data: donneesQR, size: 200),
+
+              const SizedBox(height: 15),
+
+              Text(
+                "${user!.prenom ?? ''} ${user!.nom ?? ''}",
+                style: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+                textAlign: TextAlign.center,
+              ),
+
+              const SizedBox(height: 5),
+
+              Text(
+                user!.email,
+                style: const TextStyle(fontSize: 13, color: greyText),
+                textAlign: TextAlign.center,
+              ),
 
               const SizedBox(height: 15),
 
               const Text(
-                "Scannez ce QR Code pour partager vos informations.",
+                "Scannez ce QR Code pour partager mes coordonnées.",
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 12, color: greyText),
               ),
@@ -482,10 +457,6 @@ class _HomeState extends State<Home> {
       },
     );
   }
-
-  // =========================================================
-  // DÉCONNEXION
-  // =========================================================
 
   void afficherConfirmationDeconnexion() {
     showDialog(
@@ -521,9 +492,7 @@ class _HomeState extends State<Home> {
 
                 Navigator.pushAndRemoveUntil(
                   context,
-
                   MaterialPageRoute(builder: (context) => const Connexion()),
-
                   (route) => false,
                 );
               },
@@ -531,6 +500,7 @@ class _HomeState extends State<Home> {
               style: ElevatedButton.styleFrom(
                 backgroundColor: primaryColor,
                 foregroundColor: Colors.white,
+
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),

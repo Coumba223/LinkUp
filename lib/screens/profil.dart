@@ -59,13 +59,14 @@ class _ProfilState extends State<Profil> {
                   child: Column(
                     children: [
                       ListTile(
-                        onTap: () {
-                          Navigator.push(
+                        onTap: () async {
+                          await Navigator.push(
                             context,
                             MaterialPageRoute(
                               builder: (context) => InfoPerso(),
                             ),
                           );
+                          await chargerUtilisateur();
                         },
                         leading: const Icon(Icons.person_outline),
                         title: Text("Information personnelles"),

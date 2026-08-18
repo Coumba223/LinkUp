@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:linkupapp/functions/auth.dart';
+import 'package:linkupapp/models/user.dart';
 import 'package:linkupapp/screens/connexion.dart';
 import 'package:linkupapp/screens/home.dart';
 
@@ -21,7 +22,7 @@ class _InscriptionState extends State<Inscription> {
       TextEditingController();
 
   bool visible = false;
-
+  
   @override
   void dispose() {
     _nomController.dispose();

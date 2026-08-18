@@ -11,6 +11,7 @@ Future<bool> inscrire({
   required String prenom,
   required String email,
   required String password,
+  
 }) async {
   User user = User(nom: nom, prenom: prenom, email: email, password: password);
   String donneesJson = jsonEncode(user.toJson());
@@ -48,32 +49,44 @@ Future<User?> getCurrentUser() async {
   User user = User.fromJson(donnees);
   return user;
 }
+
 //Ajouter un contatct
 Future<bool> addNewContact(Contact contact) async {
   final prefs = await SharedPreferences.getInstance();
 
+  // Récupérer l'utilisateur connecté
   User? user = await getCurrentUser();
 
   if (user == null) {
     return false;
   }
 
-  String emailUtilisateur = user.email;
+  // Clé propre à l'utilisateur
+  String cleContacts = "contacts_${user.email}";
 
-  String cleContacts = "contacts_$emailUtilisateur";
+  // Récupérer ses contacts
+  List<String> contacts = prefs.getStringList(cleContacts) ?? [];
 
-  List<String> contacts =
-      prefs.getStringList(cleContacts) ?? [];
+  // Vérifier si le contact existe déjà
+  bool existeDeja = contacts.any((contactJson) {
+    Contact ancienContact = Contact.decodeUserInfo(contactJson);
 
+    return ancienContact.email?.toLowerCase() == contact.email?.toLowerCase();
+  });
+
+  // Si le contact existe déjà
+  if (existeDeja) {
+    return false;
+  }
+
+  // Ajouter le nouveau contact
   contacts.add(jsonEncode(contact.toJson()));
 
-  await prefs.setStringList(
-    cleContacts,
-    contacts,
-  );
+  await prefs.setStringList(cleContacts, contacts);
 
   return true;
 }
+
 //Afficher les contacts
 Future<List<Contact>> getContacts() async {
   final prefs = await SharedPreferences.getInstance();
@@ -88,13 +101,13 @@ Future<List<Contact>> getContacts() async {
 
   String cleContacts = "contacts_$emailUtilisateur";
 
-  List<String> contacts =
-      prefs.getStringList(cleContacts) ?? [];
+  List<String> contacts = prefs.getStringList(cleContacts) ?? [];
 
   return contacts.map((contact) {
     return Contact.decodeUserInfo(contact);
   }).toList();
 }
+
 //Mettre a jour les informations d'un utilisateur
 Future<bool> updateUser(User user) async {
   final prefs = await SharedPreferences.getInstance();
@@ -105,6 +118,7 @@ Future<bool> updateUser(User user) async {
 
   return true;
 }
+
 Future<void> logout() async {
   final prefs = await SharedPreferences.getInstance();
 

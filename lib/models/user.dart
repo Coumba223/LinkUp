@@ -18,42 +18,38 @@ class User {
   });
 
   String getInfo() {
-    Map<String, dynamic> infos = {
-      "nom": nom,
-      "prenom": prenom,
-      "email": email,
-      "SiteWeb": siteWeb,
-      "linkedin": linkedin,
-    };
-    String donneesJson = jsonEncode(infos);
-
-    return donneesJson;
+    return jsonEncode({
+      'nom': nom,
+      'prenom': prenom,
+      'email': email,
+      'siteWeb': siteWeb ?? '',
+      'linkedin': linkedin ?? '',
+    });
   }
 
-  factory User.decodeUserInfo(String stringData) {
-    Map<String, dynamic> donnees = jsonDecode(stringData);
-    return User.fromJson(donnees);
+  factory User.decodeUserInfo(String data) {
+    return User.fromJson(jsonDecode(data));
   }
 
   Map<String, dynamic> toJson() {
     return {
-      "nom": nom,
-      "prenom": prenom,
-      "email": email,
-      "password": password,
-      "siteWeb": siteWeb,
-      "linkedin": linkedin,
+      'nom': nom,
+      'prenom': prenom,
+      'email': email,
+      'password': password,
+      'siteWeb': siteWeb,
+      'linkedin': linkedin,
     };
   }
 
-  factory User.fromJson(Map<String, dynamic> jSon) {
+  factory User.fromJson(Map<String, dynamic> json) {
     return User(
-      nom: jSon["nom"],
-      email: jSon["email"],
-      password: jSon["password"],
-      prenom: jSon["prenom"],
-      siteWeb: jSon["siteWeb"],
-      linkedin: jSon["linkedin"],
+      nom: json['nom'],
+      prenom: json['prenom'],
+      email: json['email'] ?? '',
+      password: json['password'] ?? '',
+      siteWeb: json['siteWeb'],
+      linkedin: json['linkedin'],
     );
   }
 }
