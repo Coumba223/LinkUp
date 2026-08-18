@@ -5,16 +5,16 @@ class User {
   String? prenom;
   String email;
   String password;
-  String? profession;
-  String? info;
+  String? siteWeb;
+  String? linkedin;
 
   User({
     required this.email,
     required this.password,
     this.nom,
     this.prenom,
-    this.profession,
-    this.info,
+    this.siteWeb,
+    this.linkedin,
   });
 
   String getInfo() {
@@ -22,8 +22,8 @@ class User {
       "nom": nom,
       "prenom": prenom,
       "email": email,
-      "profession": profession,
-      "info": info,
+      "SiteWeb": siteWeb,
+      "linkedin": linkedin,
     };
     String donneesJson = jsonEncode(infos);
 
@@ -31,7 +31,7 @@ class User {
   }
 
   factory User.decodeUserInfo(String stringData) {
-    Map<String, dynamic> donnees = jsonDecode(stringData); 
+    Map<String, dynamic> donnees = jsonDecode(stringData);
     return User.fromJson(donnees);
   }
 
@@ -41,8 +41,8 @@ class User {
       "prenom": prenom,
       "email": email,
       "password": password,
-      "profession": profession,
-      "info": info,
+      "siteWeb": siteWeb,
+      "linkedin": linkedin,
     };
   }
 
@@ -52,8 +52,8 @@ class User {
       email: jSon["email"],
       password: jSon["password"],
       prenom: jSon["prenom"],
-      profession: jSon["profession"],
-      info: jSon["info"],
+      siteWeb: jSon["siteWeb"],
+      linkedin: jSon["linkedin"],
     );
   }
 }

@@ -8,7 +8,9 @@ import 'package:linkupapp/screens/discover3.dart';
 import 'package:linkupapp/screens/monreseau.dart';
 import 'package:linkupapp/screens/nouveaucontact.dart';
 import 'package:linkupapp/screens/profil.dart';
+import 'package:linkupapp/screens/scancontact.dart';
 import 'package:linkupapp/screens/splashscreen.dart';
+import 'package:linkupapp/screens/testqr.dart';
 
 void main() {
   runApp(const MyApp());
@@ -24,6 +26,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(colorScheme: .fromSeed(seedColor: Colors.deepPurple)),
+      // home: const SplashScreen(),
       home: const SplashScreen(),
     );
   }
